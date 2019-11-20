@@ -23,21 +23,49 @@ const SearchBarButton = styled.button``;
 
 const ThumbnailsContainer = styled.div`
   border: 1px solid black;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10%;
 `;
 
 const Thumbnail = styled.div`
   border: 1px solid blue;
+  flex: 0 0 30%;
+  height: 38vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 3%;
 `;
 
-const ThumbnailsContainerImg = styled.img``;
+const ThumbnailsContainerImg = styled.div`
+  flex: 1 1 100%;
+`;
 
-const ThumbnailTitle = styled.span``;
+const ThumbnailImg = styled.img`
+  width: 100%;
+`;
+
+const ThumbnailTitle = styled.span`
+  font-weight: bold;
+  font-size: 15px;
+`;
+
+const LinkToCharacterPage = styled(Link)`
+  text-decoration: none;
+`;
 
 // CharacterPage
 
 const CharacterPageStyle = styled.div`
   border: 1px solid black;
 `;
+
+const CharacterContainer = styled.div``;
+
+const CharacterImgContainer = styled.div``;
 
 const CharacterImg = styled.img``;
 
@@ -56,9 +84,13 @@ export {
   SearchBarButton,
   ThumbnailsContainer,
   Thumbnail,
+  LinkToCharacterPage,
   ThumbnailsContainerImg,
+  ThumbnailImg,
   ThumbnailTitle,
   CharacterPageStyle,
+  CharacterContainer,
+  CharacterImgContainer,
   CharacterImg,
   CharacterInfos,
   CharacterName,
