@@ -14,39 +14,27 @@ import {
 
 export class CharacterPage extends Component {
   state = {
-    characterInfos: [],
+    character: null,
   };
-  async componentDidMount() {
-    console.log(this.props);
-    const {
-      props: {
-        match: {
-          params: { characterId },
-        },
-      },
-    } = this;
-    console.log(characterId);
 
-    const {
-      data: {
-        data: { results },
-      },
-    } = await fetchMarvelCharacterById(characterId);
-    this.setState({
-      characterInfos: results,
-    });
-    console.log(this.state);
-
-    console.log(await fetchMarvelCharacterById(characterId));
+  componentDidUpdate({ character: { id: oldId } }, prevState) {
+    this.fetchCharacter(oldId);
   }
 
+  fetchCharacter = async oldId => {
+    if (oldId !== this.props.character.id) {
+      const character = await fetchMarvelCharacterById(this.props.character.id);
+      this.setState({
+        character,
+      });
+    }
+  };
+
   render() {
-    const {
-      state: { characterInfos },
-    } = this;
+    const { character } = this.props;
     return (
       <CharacterPageStyle>
-        {characterInfos.map(
+        {character.map(
           ({ id, name, description, thumbnail: { path, extension } }) => (
             <CharacterContainer key={id}>
               <CharacterImgContainer>
@@ -59,7 +47,7 @@ export class CharacterPage extends Component {
             </CharacterContainer>
           )
         )}
-        ;
+        
       </CharacterPageStyle>
     );
   }

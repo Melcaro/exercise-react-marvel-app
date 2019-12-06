@@ -1,16 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { AppTitle } from './AppTitle';
 import { SearchBar } from './SearchBar';
-import { ResultsContainer } from './ResultsContainer';
 import { CharacterPage } from './CharacterPage';
 import { fetchMarvelCharacters } from './../services/FetchMarvelCharacters';
+
+import { AppStyle } from './Styles';
 
 class App extends React.Component {
   state = {
     userInput: '',
-    searchResults: [],
+    character: [],
   };
 
   onInputChange = ({ target: { value } }) => {
@@ -32,34 +32,21 @@ class App extends React.Component {
       },
     } = await fetchMarvelCharacters(this.state.userInput);
     this.setState({
-      searchResults: results,
+      character: results,
     });
-    console.log(this.state.searchResults);
   };
 
   render() {
-    const {
-      state: { searchResults },
-    } = this;
     return (
-      <BrowserRouter>
-        <Route path="/" component={AppTitle} />
-        <Route
-          path="/"
-          render={() => (
-            <SearchBar
-              onChange={this.onInputChange}
-              onKeyDown={this.onKeyDown}
-              onClick={this.startSearch}
-            />
-          )}
+      <AppStyle>
+        <AppTitle />
+        <SearchBar
+          onChange={this.onInputChange}
+          onKeyDown={this.onKeyDown}
+          onClick={this.startSearch}
         />
-        <Route
-          path="/"
-          render={() => <ResultsContainer value={searchResults} />}
-        />
-        <Route path="/character/:characterId" component={CharacterPage} />
-      </BrowserRouter>
+        <CharacterPage character={this.state.character} />
+      </AppStyle>
     );
   }
 }
